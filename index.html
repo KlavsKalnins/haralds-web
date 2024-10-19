@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Higher or Lower Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      input {
+        font-size: 1.2em;
+        padding: 5px;
+      }
+      button {
+        font-size: 1.2em;
+        padding: 5px 10px;
+        margin-left: 10px;
+      }
+      p {
+        font-size: 1.5em;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Guess the Number!</h1>
+    <p>Pick a number between 0 and 100. You have 3 lives!</p>
+
+    <input id="userGuess" type="number" min="0" max="100" placeholder="Enter your guess" />
+    <button onclick="checkGuess()">Guess</button>
+
+    <p id="feedback">Higher or Lower?</p>
+    <p id="lives">Lives: 10</p>
+
+    <script>
+      // Random number between 0 and 100
+      let randomNumber = Math.floor(Math.random() * 101);
+      let lives = 10;
+
+      function checkGuess() {
+        let guess = parseInt(document.getElementById('userGuess').value);
+        let feedback = document.getElementById('feedback');
+        let livesDisplay = document.getElementById('lives');
+
+        if (isNaN(guess)) {
+          feedback.textContent = "Please enter a valid number!";
+          return;
+        }
+
+        if (lives > 1) {
+          if (guess === randomNumber) {
+            feedback.textContent = "Congratulations! You guessed the correct number!";
+            livesDisplay.textContent = "Lives: " + lives;
+          } else if (guess > randomNumber) {
+            feedback.textContent = "Lower!";
+            lives--;
+          } else if (guess < randomNumber) {
+            feedback.textContent = "Higher!";
+            lives--;
+          }
+        } else {
+          feedback.textContent = "Game Over! The number was " + randomNumber;
+          livesDisplay.textContent = "Lives: 0";
+        }
+
+        livesDisplay.textContent = "Lives: " + lives;
+      }
+    </script>
+  </body>
+</html>
